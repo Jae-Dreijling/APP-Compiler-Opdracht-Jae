@@ -76,6 +76,14 @@
 					<mainClass>nl.han.ica.icss.gui.Main</mainClass>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>3.5.0</version>
+				<configuration>
+					<mainClass>${exec.mainClass}</mainClass>
+				</configuration>
+			</plugin>
 			<!-- experimental: use for fat jar, but removes module encapsulation -->
 			<!--plugin>
 				<groupId>org.apache.maven.plugins</groupId>
