@@ -99,6 +99,7 @@
 			</plugin-->
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
+				<version>3.7.1</version>
 				<configuration>
 					<descriptorRefs>
 						<descriptorRef>jar-with-dependencies</descriptorRef>
@@ -109,7 +110,7 @@
 						<id>simple-command</id>
 						<phase>package</phase>
 						<goals>
-							<goal>attached</goal>
+							<goal>single</goal>
 						</goals>
 					</execution>
 				</executions>
