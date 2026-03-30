@@ -60,8 +60,14 @@ variableAssignment: CAPITAL_IDENT ASSIGNMENT_OPERATOR expression SEMICOLON;
 
 declaration: LOWER_IDENT COLON expression SEMICOLON;
 
-expression: literal
-          | variableReference;
+expression: addExpr;
+
+addExpr: mulExpr ((PLUS | MIN) mulExpr)*;
+
+mulExpr: primary (MUL primary)*;
+
+primary: literal
+       | variableReference;
 
 variableReference: CAPITAL_IDENT;
 
