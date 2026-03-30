@@ -74,5 +74,6 @@ variableReference: CAPITAL_IDENT;
 literal: COLOR
        | PIXELSIZE
        | PERCENTAGE
+       | SCALAR
        | TRUE
        | FALSE;
