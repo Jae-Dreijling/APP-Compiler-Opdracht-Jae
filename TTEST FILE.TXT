@@ -1,103 +1,153 @@
-A ) De sterkste keuze in de projectinrichting is de combinatie van een vaste meetingstructuur (met agenda en notulen), het werken met duidelijke rolverdeling binnen subteams, en het toepassen van RupSum.
+A )  
 
-Deze keuze past goed bij het project, omdat er met meerdere teams gewerkt wordt en duidelijke afstemming nodig is. Vanuit RupSum sluit dit aan op iteratief werken met vaste feedbackmomenten en een duidelijke fasering (analyse → ontwerp → implementatie). Dit voorkomt dat teams te vroeg beginnen met implementeren zonder gedeelde requirements, wat volgens de theorie juist leidt tot misalignment tussen ontwerp en uitvoering.
+Ik heb actief bijgedragen door het belang van brede input en regelmatige controle te benadrukken. 
 
-Daarnaast zorgt de structuur voor continue afstemming tussen teamleden en stakeholders, wat aansluit op het belang van samenwerking en communicatie binnen projecten.
+Concreet heb ik voorgesteld: 
 
-Concreet voorbeeld:
+Dat alle rollen betrokken worden bij het identificeren van risico’s voor het PvA 
 
-In de meetings die ik heb geleid werd altijd een agenda gevolgd en werden actiepunten genotuleerd. Daarnaast zaten we in een U-vorm, waardoor iedereen elkaar kon zien en makkelijker kon reageren. Dit sluit aan op het iteratieve karakter van RupSum, waarin regelmatige feedbackmomenten zorgen voor bijsturing en gezamenlijke besluitvorming. Hierdoor kreeg iedereen de kans om input te geven en lagen afspraken duidelijk vast.
+Dat kwaliteit niet alleen vanuit één groep komt, maar vanuit alle rollen 
 
-B ) Ik heb actief bijgedragen aan de projectinrichting, vooral op het gebied van communicatie, structuur en betrokkenheid. 
+Daarnaast heb ik (ongeveer)  gezegd: 
 
-Concreet heb ik: 
-
-    Twee meetings geleid waarin ik het PvA met de groep heb verdeeld 
-
-    Tijdens meetings expliciet gevraagd wie welke taak oppakt 
-
-    Mensen apart benaderd om hun mening te vragen over onderdelen 
-
-    Een verkiezing georganiseerd voor de projectmanagers 
-
-    Geregeld dat mensen van rol konden wisselen als ze niet tevreden waren 
-
-    Iemand aangesproken die door anderen heen praatte, om de meeting structuur te bewaken 
-
-Voorbeeld: 
-
-Tijdens een meeting bleef het onduidelijk wie een onderdeel van het PvA zou oppakken. Ik heb toen gevraagd wie dit concreet oppakt en wanneer het af moet zijn, waarna dit direct werd verdeeld en vastgelegd. 
+“Het is belangrijk dat we regelmatig inchecken, zodat er genoeg tijd is om problemen op te lossen in plaats van dat het lang vastzit.” 
 
  
 
- 
+B ) 
 
-C ) De meest risicovolle keuze is de afhankelijkheid van communicatie tussen teams. 
+Ik heb direct bijgedragen via het SAD. (tijdens SWA) 
 
-Wat er mis kan gaan: 
+Concreet: 
 
-Als teams aannames maken zonder dit goed af te stemmen, kunnen onderdelen niet op elkaar aansluiten. 
+    Stakeholders uitgewerkt 
 
-Concreet risico: 
+    Quality attribute scenario’s opgesteld voor Project 42 
 
-Bijvoorbeeld dat teams verschillende verwachtingen hebben over hoe data of services werken, waardoor integratie later problemen geeft. Dit risico is groot omdat teams parallel gaan werken en niet automatisch zicht hebben op elkaars keuzes. 
+    Use cases uitgewerkt 
 
- 
-
- 
-
-D )  
-
-Samenwerken tussen rollen en teams: 
-
-Tot nu toe goed opgezet, maar er is een duidelijk aandachtspunt in participatie. 
-
-Voorbeeld: tijdens de eerste meeting waren vooral vier mensen (waaronder ik) actief in gesprek, terwijl de rest weinig input gaf. Dit werd ook door de docent benoemd. 
+Dit helpt om duidelijk te maken wat het systeem moet doen en aan welke kwaliteitseisen het moet voldoen. 
 
  
 
-Overzicht houden: 
+C ) 
 
-Goed. 
+Het belangrijkste kwaliteitscriterium is regelmatige controle en feedback op werk. 
 
-Voorbeeld: door de PvA-verdeling in meetings is duidelijk geworden wie verantwoordelijk is voor welk onderdeel. 
+Waarom: 
+
+Als er niet regelmatig gecontroleerd wordt, blijven fouten lang onopgemerkt en worden ze pas laat opgelost. 
+
+Concreet voorbeeld: 
+
+Daarom heb ik voorgesteld om: 
+
+    Daily Stand-Ups binnen teams te doen 
+
+    Wekelijkse reviews te houden 
+
+    In sprints van 2 weken te werken 
 
  
 
-Besluiten nemen: 
+D ) 
 
-Redelijk. 
+Interoperability. 
 
-Voorbeeld: bij de projectmanager-verkiezing werd een poll gebruikt, maar veel mensen reageerden pas laat en moesten herinnerd worden. Dit maakt het proces trager. 
+Waarom: 
+
+Het systeem bestaat uit meerdere onderdelen die moeten samenwerken. Als die niet goed op elkaar aansluiten, werkt het geheel niet. 
 
  
 
 E ) 
 
-Afstemming is georganiseerd via:
+Een belangrijk verbeterpunt is dat kwaliteitsafspraken nog niet concreet genoeg zijn. 
 
-Meetings met agenda en notulen
-(Geplande) Daily Stand-Ups
-Polls voor beslissingen
-Documentatie
+Wat nu nog niet goed is: 
 
-Wat goed werkt:
+    De Definition of Done is nog niet duidelijk 
 
-Meetings met duidelijke structuur
-→ In de meetings die ik heb geleid werd de agenda gevolgd en werden actiepunten genotuleerd. Dit zorgt ervoor dat beslissingen vastliggen en dat opvolging duidelijk is.
-Fysieke opstelling (U-vorm)
-→ Door de U-vorm kan iedereen elkaar aankijken, wat het makkelijker maakt om te reageren en bij te dragen aan de discussie. Dit verlaagt de drempel om input te geven.
+    Sommige afspraken zijn nog vaag 
 
-Wat beter kan:
+Concrete oplossing: 
 
-Betrokkenheid van stille teamleden
-→ In meetings reageren vaak dezelfde 2–3 mensen, terwijl andere teamleden minder actief deelnemen. Hierdoor worden niet alle perspectieven meegenomen in beslissingen en kan draagvlak binnen het team lager zijn.
+    Definition of Done per taak opstellen 
 
-Concrete verbetering:
+    Duidelijke criteria wanneer iets “af” is 
 
-Actief mensen aanspreken
-→ Ik ga aansporen bij gesprekleiders, de teamleden direct gaan vragen naar hun mening (“[naam], wat vind jij hiervan?”). Dit zorgt ervoor dat meer mensen input geven en dat beslissingen breder gedragen worden.
-Fysieke besluitvorming in plaats van alleen polls
-→ Bij de verkiezing bleek dat mensen laat of niet reageren op polls. Door beslissingen fysiek in een meeting te nemen, wordt sneller duidelijk wat het team vindt en worden keuzes efficiënter gemaakt.
- Duidelijk afsluiten met check op begrip
-→ Aan het einde van meetings wordt nu niet altijd expliciet gecontroleerd of iedereen de gemaakte afspraken begrijpt. Door kort samen te vatten en te vragen of alles duidelijk is, wordt voorkomen dat teamleden verschillende interpretaties hebben van dezelfde beslissing.
+    Controlemomenten koppelen aan taken 
+
+ 
+
+F ) 
+
+    Discussies binnen de klas 
+
+    Input van verschillende rollen 
+
+    Onderzoek en voorbereiding 
+
+ 
+
+G ) 
+
+    Studenten die actief input gaven 
+
+    Onderzoeksgroepen 
+
+    Docenten 
+
+ 
+
+H ) 
+
+Gemiddeld tot actief. 
+
+Concreet: 
+
+    Ik heb voorstellen gedaan over checks en samenwerking 
+
+    Ik heb het belang van regelmatige controle en brede input benadrukt 
+
+ 
+
+I ) 
+
+Belangen: 
+
+    Snel beginnen vs eerst goed uitwerken 
+
+Oplossing: 
+
+    Eerst basisafspraken maken 
+
+    Daarna iteratief werken met feedbackmomenten 
+
+ 
+
+J ) 
+
+Redelijk. 
+
+Voorbeeld: 
+
+Afspraken worden geaccepteerd, maar moeten nog in de praktijk worden getest en nageleefd. 
+
+ 
+
+K ) 
+
+Feedback gebeurt via: 
+
+    Meetings 
+
+    Reviews (gepland) 
+
+Wat dit van mij vraagt: 
+
+    Actief feedback vragen 
+
+    Openstaan voor kritiek 
+
+    Feedback verwerken 
