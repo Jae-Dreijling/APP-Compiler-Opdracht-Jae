@@ -15,21 +15,43 @@ Daarnaast heb ik (ongeveer)  gezegd:
  
 
 B ) 
+Ik heb direct bijgedragen via het SAD (tijdens SWA), waarbij mijn rol vooral lag in het concretiseren van requirements naar uitgewerkte scenario’s en use cases.
 
-Ik heb direct bijgedragen via het SAD. (tijdens SWA) 
+Concreet heb ik:
 
-Concreet: 
+Alle use cases opgesteld (behalve login en register), zoals UC-1: Start Battle en UC-3: Perform Turn
+Zelf quality attributes opgesteld, waaronder P08 (Fault tolerance) en P09 (Integrity)
+Alle Quality Attribute Scenarios (QAS) uitgewerkt
+Het Process View (sequence diagram) volledig ontworpen
+Het hoofdstuk External Interfaces ingevuld toen dit eerst leeg gelaten werd
+Glossary’s toegevoegd aan alle diagrammen om interpretatieverschillen te voorkomen
 
-    Stakeholders uitgewerkt 
+Mijn bijdrage aan quality attributes bestond uit het vertalen van globale eisen naar concrete, testbare scenario’s.
 
-    Quality attribute scenario’s opgesteld voor Project 42 
+Bijvoorbeeld:
 
-    Use cases uitgewerkt 
+Quality Attribute: Performance (P03 – Time behaviour)
+→ Requirement:
+“Wanneer een speler een actie uitvoert, moet de tegenstander het resultaat binnen gemiddeld 150 ms zien bij ≤30 spelers.”
+Concreet scenario (QAS-01):
+→ Stimulus: speler voert een actie uit
+→ Response: systeem verwerkt actie en stuurt update
+→ Meetbare response: resultaat zichtbaar binnen ≤150 ms
 
-Dit helpt om duidelijk te maken wat het systeem moet doen en aan welke kwaliteitseisen het moet voldoen. 
+Hiermee wordt een abstracte eis (“responsive gameplay”) omgezet naar een meetbare grens. Dit maakt het mogelijk om later te testen of de architectuur (bijv. in-memory state in de Battle Service) deze performance daadwerkelijk ondersteunt.
 
- 
+Een tweede voorbeeld van mijn bijdrage is:
 
+Quality Attribute: Fault tolerance (P08)
+→ Requirement: actieve battles mogen niet stoppen bij uitval van een niet-kritische service
+Concreet scenario (QAS-03):
+→ Stimulus: analytics service valt uit
+→ Response: systeem isoleert de fout
+→ Resultaat: actieve battles blijven doorgaan
+
+Dit dwingt de architectuur om services los te koppelen, zodat een fout in één service niet het hele systeem beïnvloedt.
+
+Daarnaast heb ik via de use cases (zoals Perform Turn) en het process view concreet gemaakt hoe het systeem zich gedraagt tijdens runtime, inclusief validatie en foutafhandeling. Dit helpt om quality attributes zoals performance en fault tolerance te koppelen aan echte systeeminteracties.
 C ) 
 
 Het belangrijkste kwaliteitscriterium is regelmatige controle en feedback op werk. 
