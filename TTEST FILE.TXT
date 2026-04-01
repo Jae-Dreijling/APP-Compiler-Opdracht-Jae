@@ -52,26 +52,39 @@ Concreet scenario (QAS-03):
 Dit dwingt de architectuur om services los te koppelen, zodat een fout in één service niet het hele systeem beïnvloedt.
 
 Daarnaast heb ik via de use cases (zoals Perform Turn) en het process view concreet gemaakt hoe het systeem zich gedraagt tijdens runtime, inclusief validatie en foutafhandeling. Dit helpt om quality attributes zoals performance en fault tolerance te koppelen aan echte systeeminteracties.
-C ) 
+C ) Het belangrijkste kwaliteitscriterium is regelmatige controle en feedback op werk.
 
-Het belangrijkste kwaliteitscriterium is regelmatige controle en feedback op werk. 
+Waarom:
 
-Waarom: 
+Als er niet regelmatig gecontroleerd wordt, blijven fouten lang onopgemerkt en worden ze pas laat opgelost. Dit zorgt ervoor dat problemen zich opstapelen en moeilijker te herstellen zijn.
 
-Als er niet regelmatig gecontroleerd wordt, blijven fouten lang onopgemerkt en worden ze pas laat opgelost. 
+Concreet heb ik voorgesteld om:
 
-Concreet voorbeeld: 
+Daily Stand-Ups binnen teams te doen
+Wekelijkse reviews te houden
+In sprints van 2 weken te werken
 
-Daarom heb ik voorgesteld om: 
+Daarnaast heb ik expliciet aangegeven hoe deze momenten gebruikt moeten worden voor feedback en niet alleen voor statusupdates.
 
-    Daily Stand-Ups binnen teams te doen 
+Bij de Daily Stand-Ups heb ik voorgesteld om vaste vragen te gebruiken:
 
-    Wekelijkse reviews te houden 
+“Wat heb je gedaan?”
+“Wat ga je doen?”
+“Loop je ergens vast?”
 
-    In sprints van 2 weken te werken 
+Hierdoor wordt feedback direct onderdeel van het proces:
 
- 
+Als iemand vastloopt, kan het team meteen meedenken en feedback geven
+Problemen worden vroeg zichtbaar in plaats van pas aan het einde van een sprint
 
+Tijdens wekelijkse reviews wordt werk inhoudelijk besproken.
+
+Concreet voorbeeld:
+Als een quality attribute of use case niet duidelijk genoeg is, kan dit in een review direct benoemd worden. Vervolgens wordt dit aangepast en opnieuw gedeeld, zodat andere teams met een duidelijke en correcte versie verder kunnen werken.
+
+Feedback wordt dus niet alleen gegeven, maar ook verwerkt, bijvoorbeeld door actiepunten toe te voegen of documentatie aan te passen.
+
+Op deze manier zorgen de geplande momenten niet alleen voor controle, maar ook voor continue verbetering van de kwaliteit.
 D ) 
 
 Interoperability. 
