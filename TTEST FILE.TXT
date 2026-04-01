@@ -1,12 +1,12 @@
-A ) De sterkste keuze in de projectinrichting is de combinatie van een vaste meetingstructuur (met agenda en notulen) en het werken met duidelijke rolverdeling binnen subteams. 
+A ) De sterkste keuze in de projectinrichting is de combinatie van een vaste meetingstructuur (met agenda en notulen), het werken met duidelijke rolverdeling binnen subteams, en het toepassen van RupSum.
 
-Deze keuze past goed bij het project, omdat er met meerdere teams gewerkt wordt en duidelijke afstemming nodig is. Door vaste structuren voorkom je dat informatie verloren gaat of dat mensen langs elkaar heen werken. 
+Deze keuze past goed bij het project, omdat er met meerdere teams gewerkt wordt en duidelijke afstemming nodig is. Vanuit RupSum sluit dit aan op iteratief werken met vaste feedbackmomenten en een duidelijke fasering (analyse → ontwerp → implementatie). Dit voorkomt dat teams te vroeg beginnen met implementeren zonder gedeelde requirements, wat volgens de theorie juist leidt tot misalignment tussen ontwerp en uitvoering.
 
-Concreet voorbeeld: 
+Daarnaast zorgt de structuur voor continue afstemming tussen teamleden en stakeholders, wat aansluit op het belang van samenwerking en communicatie binnen projecten.
 
-In de meetings die ik heb geleid werd altijd een agenda gevolgd en werden actiepunten genotuleerd. Daarnaast zaten we in een U-vorm, waardoor iedereen elkaar kon zien en makkelijker kon reageren. Dit zorgde ervoor dat iedereen de kans kreeg om input te geven en dat afspraken duidelijk vastlagen. 
+Concreet voorbeeld:
 
- 
+In de meetings die ik heb geleid werd altijd een agenda gevolgd en werden actiepunten genotuleerd. Daarnaast zaten we in een U-vorm, waardoor iedereen elkaar kon zien en makkelijker kon reageren. Dit sluit aan op het iteratieve karakter van RupSum, waarin regelmatige feedbackmomenten zorgen voor bijsturing en gezamenlijke besluitvorming. Hierdoor kreeg iedereen de kans om input te geven en lagen afspraken duidelijk vast.
 
 B ) Ik heb actief bijgedragen aan de projectinrichting, vooral op het gebied van communicatie, structuur en betrokkenheid. 
 
