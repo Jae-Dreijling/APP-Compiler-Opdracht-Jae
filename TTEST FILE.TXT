@@ -74,40 +74,30 @@ Voorbeeld: bij de projectmanager-verkiezing werd een poll gebruikt, maar veel me
 
 E ) 
 
-Afstemming is georganiseerd via: 
+Afstemming is georganiseerd via:
 
-    Meetings met agenda en notulen 
+Meetings met agenda en notulen
+(Geplande) Daily Stand-Ups
+Polls voor beslissingen
+Documentatie
 
-    (Geplande) Daily Stand-Ups 
+Wat goed werkt:
 
-    Polls voor beslissingen 
+Meetings met duidelijke structuur
+→ In de meetings die ik heb geleid werd de agenda gevolgd en werden actiepunten genotuleerd. Dit zorgt ervoor dat beslissingen vastliggen en dat opvolging duidelijk is.
+Fysieke opstelling (U-vorm)
+→ Door de U-vorm kan iedereen elkaar aankijken, wat het makkelijker maakt om te reageren en bij te dragen aan de discussie. Dit verlaagt de drempel om input te geven.
 
-    Documentatie 
+Wat beter kan:
 
-Wat goed werkt: 
+Betrokkenheid van stille teamleden
+→ In meetings reageren vaak dezelfde 2–3 mensen, terwijl andere teamleden minder actief deelnemen. Hierdoor worden niet alle perspectieven meegenomen in beslissingen en kan draagvlak binnen het team lager zijn.
 
-    Meetings met duidelijke structuur 
+Concrete verbetering:
 
-                → voorbeeld: agenda wordt gevolgd en actiepunten worden genotuleerd 
-
-    Fysieke opstelling (U-vorm) 
-
-                   → voorbeeld: iedereen kan elkaar aankijken en makkelijker reageren 
-
-Wat beter kan: 
-
-    Betrokkenheid van stille teamleden 
-
-                   → voorbeeld: in meetings reageren vaak dezelfde 2–3 mensen 
-
-Concrete verbetering: 
-
-    Actief mensen aanspreken 
-
-                   → voorbeeld: ik ben mensen direct gaan vragen: “(naam), wat vind jij hiervan?” 
-
-    Fysieke besluitvorming i.p.v. alleen polls 
-
-                   → voorbeeld: bij de verkiezing bleek dat mensen laat reageren, waardoor fysiek stemmen efficiënter is 
-
- 
+Actief mensen aanspreken
+→ Ik ga aansporen bij gesprekleiders, de teamleden direct gaan vragen naar hun mening (“[naam], wat vind jij hiervan?”). Dit zorgt ervoor dat meer mensen input geven en dat beslissingen breder gedragen worden.
+Fysieke besluitvorming in plaats van alleen polls
+→ Bij de verkiezing bleek dat mensen laat of niet reageren op polls. Door beslissingen fysiek in een meeting te nemen, wordt sneller duidelijk wat het team vindt en worden keuzes efficiënter gemaakt.
+ Duidelijk afsluiten met check op begrip
+→ Aan het einde van meetings wordt nu niet altijd expliciet gecontroleerd of iedereen de gemaakte afspraken begrijpt. Door kort samen te vatten en te vragen of alles duidelijk is, wordt voorkomen dat teamleden verschillende interpretaties hebben van dezelfde beslissing.
