@@ -48,7 +48,8 @@ ASSIGNMENT_OPERATOR: ':=';
 stylesheet: statement* EOF;
 
 statement: stylerule
-         | variableAssignment;
+         | variableAssignment
+         | ifClause;
 
 stylerule: selector OPEN_BRACE declaration* CLOSE_BRACE;
 
@@ -77,3 +78,8 @@ literal: COLOR
        | SCALAR
        | TRUE
        | FALSE;
+
+
+ifClause: IF BOX_BRACKET_OPEN expression BOX_BRACKET_CLOSE OPEN_BRACE statement* CLOSE_BRACE elseClause?;
+
+elseClause: ELSE OPEN_BRACE statement* CLOSE_BRACE;
