@@ -1,0 +1,9 @@
+UseRed := TRUE;
+
+p {
+    if [UseRed] {
+        color: #ff0000;
+    } else {
+        color: #0000ff;
+    }
+}

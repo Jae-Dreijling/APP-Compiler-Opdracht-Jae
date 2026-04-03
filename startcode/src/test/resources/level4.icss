@@ -1,0 +1,6 @@
+Base := 10px;
+Double := Base * 2;
+
+h1 {
+    width: Double;
+}

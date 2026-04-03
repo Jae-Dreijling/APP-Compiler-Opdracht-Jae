@@ -89,14 +89,15 @@ public class Pipeline implements ANTLRErrorListener {
 
            (new Checker()).check(this.ast);
 
-            ArrayList<SemanticError> errors = this.ast.getErrors();
-            if (!errors.isEmpty()) {
-                for (SemanticError e : errors) {
+            ArrayList<SemanticError> semanticErrors = this.ast.getErrors();
+
+            if (!semanticErrors.isEmpty()) {
+                for (SemanticError e : semanticErrors) {
                     this.errors.add(e.toString());
                 }
             }
 
-            checked = errors.isEmpty();
+            checked = this.errors.isEmpty();
             transformed = false;
             return errors.isEmpty();
     }
@@ -106,15 +107,19 @@ public class Pipeline implements ANTLRErrorListener {
     }
 
     public void transform() {
-        if(ast == null)
+        if (ast == null || !checked)
             return;
 
         (new Evaluator()).apply(ast);
 
-
-        transformed = errors.isEmpty();
+        transformed = true;
     }
+
     public String generate() {
+        if (!parsed || !checked || !transformed) {
+            return "";
+        }
+
         Generator generator = new Generator();
         return generator.generate(ast);
     }

@@ -1,4 +1,6 @@
-Compacted conversationHere's what each command does in this project:
+(Compacted conversation)
+
+\Here's what each command does in this project:
 
 **`./mvnw compile`**
 Compiles all Java source files in `src/main/java/` to `.class` files. It also runs ANTLR first to generate the parser Java classes from `ICSS.g4`. Output lands in `target/classes/`. Use this to check your code compiles without running anything.
