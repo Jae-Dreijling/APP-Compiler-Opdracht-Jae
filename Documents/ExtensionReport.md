@@ -110,8 +110,18 @@ Geschatte waarde: **10–20 punten**
 
 ---
 
-## 8. Conclusie
+## 8. Gebruik van AI-hulpmiddelen
+
+Bij het opstellen van dit document is gebruikgemaakt van AI-ondersteuning voor het structureren en formuleren van de tekst.
+
+De inhoud, keuzes, implementatie en technische uitwerking van de opdracht zijn zelfstandig uitgevoerd en begrepen door de auteur.
+
+---
+
+## 9. Conclusie
 
 De uitbreiding voegt duidelijke semantische strengheid toe aan ICSS en verhoogt de kwaliteit van gegenereerde CSS.
 
 Hiermee wordt de compiler niet alleen correct, maar ook robuuster en realistischer in gebruik.
+
+

@@ -86,9 +86,15 @@ Naast de standaard tests zijn extra testcases toegevoegd:
 * level4: variabelen + expressies
 * level5: if/else structuren
 
+## 8. Gebruik van AI-hulpmiddelen
+
+Bij het opstellen van dit document is gebruikgemaakt van AI-ondersteuning voor het structureren en formuleren van de tekst.
+
+De inhoud, keuzes, implementatie en technische uitwerking van de opdracht zijn zelfstandig uitgevoerd en begrepen door de auteur.
+
 ---
 
-## 8. Conclusie
+## 9. Conclusie
 
 Alle *Must*-eisen zijn geïmplementeerd en werken correct.
 Daarnaast zijn meerdere *Should*-eisen en extra testgevallen toegevoegd.

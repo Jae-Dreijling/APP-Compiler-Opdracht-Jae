@@ -68,9 +68,17 @@ public class Checker {
     // -------------------------
 
     private void handleVariableAssignment(VariableAssignment assignment) {
-        ExpressionType type = resolveType(assignment.expression);
+        ExpressionType newType = resolveType(assignment.expression);
 
-        variableScopes.getFirst().put(assignment.name.name, type);
+        String name = assignment.name.name;
+
+        ExpressionType existing = variableScopes.getFirst().get(name);
+
+        if (existing != null && existing != newType) {
+            assignment.setError("Variable type cannot change");
+        }
+
+        variableScopes.getFirst().put(name, newType);
     }
 
     // -------------------------
