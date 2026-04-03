@@ -35,6 +35,7 @@ public class Checker {
             pushScope();
         }
         else if (node instanceof IfClause) {
+            handleIfClause((IfClause) node);
             pushScope();
         }
         else if (node instanceof ElseClause) {
@@ -73,11 +74,38 @@ public class Checker {
     }
 
     // -------------------------
-    // DECLARATION (basic check only)
+    // DECLARATION (FINAL CHECK)
     // -------------------------
 
     private void handleDeclaration(Declaration declaration) {
-        resolveType(declaration.expression);
+        ExpressionType type = resolveType(declaration.expression);
+        String property = declaration.property.name;
+
+        if (type == ExpressionType.UNDEFINED) return;
+
+        if (property.equals("color") || property.equals("background-color")) {
+            if (type != ExpressionType.COLOR) {
+                declaration.setError("Color expected");
+            }
+        }
+
+        if (property.equals("width") || property.equals("height")) {
+            if (type != ExpressionType.PIXEL && type != ExpressionType.PERCENTAGE) {
+                declaration.setError("Size must be pixel or percentage");
+            }
+        }
+    }
+
+    // -------------------------
+    // IF CLAUSE CHECK
+    // -------------------------
+
+    private void handleIfClause(IfClause ifClause) {
+        ExpressionType condType = resolveType(ifClause.getConditionalExpression());
+
+        if (condType != ExpressionType.UNDEFINED && condType != ExpressionType.BOOL) {
+            ifClause.setError("Condition must be boolean");
+        }
     }
 
     // -------------------------
@@ -130,7 +158,10 @@ public class Checker {
         ExpressionType left = resolveType(op.lhs);
         ExpressionType right = resolveType(op.rhs);
 
-        // Disallow color & bool in math
+        if (left == ExpressionType.UNDEFINED || right == ExpressionType.UNDEFINED) {
+            return ExpressionType.UNDEFINED;
+        }
+
         if (left == ExpressionType.COLOR || right == ExpressionType.COLOR) {
             op.setError("Cannot use color in operations");
             return ExpressionType.UNDEFINED;
