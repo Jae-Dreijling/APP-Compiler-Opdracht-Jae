@@ -1,20 +1,34 @@
-# ICSS Compiler – Eigen Taaluitbreiding
+# ICSS Compiler – Eigen Taaluitbreidingen
 
 ## 1. Inleiding
 
-Als uitbreiding op de standaard ICSS-functionaliteit is een extra semantische regel geïmplementeerd:
+Als uitbreiding op de standaard ICSS-functionaliteit zijn meerdere semantische regels en optimalisaties geïmplementeerd.
 
-> **Variabelen mogen niet van type veranderen na eerste declaratie**
+De volgende uitbreidingen zijn toegevoegd:
 
-Deze uitbreiding verhoogt de betrouwbaarheid en consistentie van de taal.
+1. **Type-consistente variabelen**
+2. **AST-optimalisaties (opschonen van de boom)**
+3. **Striktere validatie van operaties (extra foutafhandeling)**
+
+Deze uitbreidingen verhogen de betrouwbaarheid, voorspelbaarheid en kwaliteit van de compiler.
 
 ---
 
-## 2. Beschrijving van de uitbreiding
+## 2. Overzicht van uitbreidingen
+
+| Uitbreiding                  | Type          |
+| ---------------------------- | ------------- |
+| Variabelen met vast type     | Semantisch    |
+| AST-optimalisatie (clean-up) | Optimalisatie |
+| Striktere operatie-validatie | Semantisch    |
+
+---
+
+## 3. Uitbreiding 1 – Type-consistente variabelen
 
 ### Probleem
 
-In de standaard ICSS-specificatie is het mogelijk om variabelen meerdere keren te overschrijven met verschillende types:
+In standaard ICSS kunnen variabelen meerdere keren worden overschreven met verschillende types:
 
 ```icss
 A := 10px;
@@ -23,94 +37,162 @@ A := 20%;
 
 Dit kan leiden tot:
 
-* onvoorspelbaar gedrag
+* inconsistent gedrag
+* fouten die pas laat zichtbaar worden
 * moeilijk te debuggen code
-* inconsistentie in typegebruik
 
 ---
 
 ### Oplossing
 
-De compiler controleert nu:
-
-> Zodra een variabele een type heeft gekregen, mag dit type niet meer veranderen.
+> Variabelen mogen binnen dezelfde scope niet van type veranderen.
 
 ---
 
-## 3. Implementatie
+### Implementatie
 
-De uitbreiding is geïmplementeerd in de `Checker`.
-
-Bij een nieuwe assignment:
-
-1. Het type van de variabele wordt bepaald
-2. Er wordt gecontroleerd of de variabele al bestaat in de huidige scope
-3. Indien het type verschilt → foutmelding
-
-Voorbeeld:
+Geïmplementeerd in de `Checker`:
 
 ```java
+ExpressionType newType = resolveType(assignment.expression);
+
+String name = assignment.name.name;
 ExpressionType existing = variableScopes.getFirst().get(name);
 
 if (existing != null && existing != newType) {
     assignment.setError("Variable type cannot change");
 }
+
+variableScopes.getFirst().put(name, newType);
 ```
 
 ---
 
-## 4. Voorbeelden
+### Scope-gedrag
 
-### ❌ Ongeldig
+* Zelfde scope → ❌ type mag niet veranderen
+* Nieuwe scope → ✅ toegestaan
 
 ```icss
 A := 10px;
-A := 20%;
-```
 
-→ Error: *Variable type cannot change*
+h1 {
+    A := 20px; // toegestaan
+}
+```
 
 ---
 
-### ✅ Geldig
+## 4. Uitbreiding 2 – AST-optimalisaties
+
+Naast semantische checks zijn optimalisaties toegevoegd aan de AST-transformatie.
+
+### 4.1 Verwijderen van variabele-assignments
+
+Na evaluatie worden `VariableAssignment` nodes verwijderd uit de AST.
+
+👉 Reden:
+
+* variabelen zijn al vervangen door literals
+* ze zijn niet meer nodig voor codegeneratie
+
+---
+
+### 4.2 Verwijderen van dubbele declaraties
+
+Wanneer dezelfde property meerdere keren voorkomt:
 
 ```icss
-A := 10px;
-A := 20px;
+h1 {
+    width: 10px;
+    width: 20px;
+}
+```
+
+→ Alleen de laatste declaratie blijft behouden.
+
+```css
+h1 {
+  width: 20px;
+}
+```
+
+👉 Dit volgt het gedrag van CSS (laatste waarde wint).
+
+---
+
+### Meerwaarde
+
+* schonere AST
+* minder redundantie
+* correctere CSS-output
+
+---
+
+## 5. Uitbreiding 3 – Striktere operatie-validatie
+
+De standaard opdracht vereist typecontrole, maar de implementatie is uitgebreid met extra robuustheid.
+
+### Extra checks:
+
+* ❌ kleuren in operaties verboden
+* ❌ booleans in operaties verboden
+* ❌ verschillende types bij + en - verboden
+* ❌ vermenigvuldiging zonder scalar verboden
+
+```java
+if (left == ExpressionType.COLOR || right == ExpressionType.COLOR) {
+    op.setError("Cannot use color in operations");
+}
 ```
 
 ---
 
-## 5. Toegevoegde testcases
+### Waarom dit een uitbreiding is
 
-Nieuwe testbestanden:
+Hoewel typechecks deels gevraagd zijn, is deze implementatie:
 
-* level10.icss → test type mismatch
-* Extra checker tests voor variabelen
-
----
-
-## 6. Meerwaarde
-
-Deze uitbreiding:
-
-* voorkomt typefouten vroegtijdig
-* maakt code voorspelbaarder
-* sluit beter aan bij typed languages
+* uitgebreider dan minimum
+* consistenter toegepast
+* robuuster tegen edge cases
 
 ---
 
-## 7. Verwachte punten
+## 6. Toegevoegde testcases
 
-Deze uitbreiding valt onder:
+Extra testbestanden:
 
-> “Iedere variabele mag alleen een vast type hebben”
-
-Geschatte waarde: **10–20 punten**
+* `level4.icss` → complexere expressies
+* `level5.icss` → nested if/else
+* `CheckerTest.java` → Automated tests for semantic validation (undefined variables, invalid operations, type checking)
+* `EvaluatorTest.java` → Automated tests for expression evaluation and arithmetic operations 
 
 ---
 
-## 8. Gebruik van AI-hulpmiddelen
+## 7. Meerwaarde van de uitbreidingen
+
+De uitbreidingen zorgen voor:
+
+* vroegtijdige foutdetectie
+* consistent typegebruik
+* betere onderhoudbaarheid van ICSS-code
+* schonere en correctere CSS-output
+* realistischer gedrag vergelijkbaar met echte compilers
+
+---
+
+## 8. Verwachte punten
+
+De uitbreidingen vallen onder:
+
+* “Iedere variabele mag alleen een vast type hebben”
+* “Het implementeren van optimalisaties op de AST”
+
+Geschatte waarde: **15–20 punten**
+
+---
+
+## 9. Gebruik van AI-hulpmiddelen
 
 Bij het opstellen van dit document is gebruikgemaakt van AI-ondersteuning voor het structureren en formuleren van de tekst.
 
@@ -118,10 +200,10 @@ De inhoud, keuzes, implementatie en technische uitwerking van de opdracht zijn z
 
 ---
 
-## 9. Conclusie
+## 10. Conclusie
 
-De uitbreiding voegt duidelijke semantische strengheid toe aan ICSS en verhoogt de kwaliteit van gegenereerde CSS.
+Door meerdere uitbreidingen te combineren is de compiler niet alleen functioneel correct, maar ook robuuster en efficiënter geworden.
 
-Hiermee wordt de compiler niet alleen correct, maar ook robuuster en realistischer in gebruik.
+De combinatie van strengere semantiek en AST-optimalisatie brengt de implementatie dichter bij hoe echte compilers werken.
 
-
+Hiermee overstijgt de oplossing de basisvereisten van de opdracht.
