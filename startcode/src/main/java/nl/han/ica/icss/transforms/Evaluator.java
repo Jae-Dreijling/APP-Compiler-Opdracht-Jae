@@ -117,7 +117,10 @@ public class Evaluator implements Transform {
 
     private void handleDeclaration(Declaration declaration) {
         Literal value = evaluateExpression(declaration.expression);
-        declaration.expression = value;
+
+        if (value != null) {
+            declaration.expression = value;
+        }
     }
 
     // -------------------------
@@ -126,7 +129,8 @@ public class Evaluator implements Transform {
 
     private Literal evaluateExpression(Expression expr) {
 
-        if (expr instanceof Literal) return (Literal) expr;
+        if (expr instanceof Literal)
+            return (Literal) expr;
 
         if (expr instanceof VariableReference) {
             return resolveVariable(((VariableReference) expr).name);
@@ -158,9 +162,12 @@ public class Evaluator implements Transform {
         Literal left = evaluateExpression(op.lhs);
         Literal right = evaluateExpression(op.rhs);
 
-        if (op instanceof AddOperation) return add(left, right);
-        if (op instanceof SubtractOperation) return subtract(left, right);
-        if (op instanceof MultiplyOperation) return multiply(left, right);
+        if (op instanceof AddOperation)
+            return add(left, right);
+        if (op instanceof SubtractOperation)
+            return subtract(left, right);
+        if (op instanceof MultiplyOperation)
+            return multiply(left, right);
 
         return null;
     }
@@ -240,12 +247,18 @@ public class Evaluator implements Transform {
                 String prop = decl.property.name;
 
                 if (seen.containsKey(prop)) {
-                    toRemove.add(seen.get(prop)); // remove older
+                    toRemove.add(seen.get(prop));
+                }
+
+                if (decl.hasError()) {
+                    toRemove.add(decl);
                 }
 
                 seen.put(prop, decl);
             }
         }
+
+        
 
         for (ASTNode n : toRemove) {
             rule.removeChild(n);

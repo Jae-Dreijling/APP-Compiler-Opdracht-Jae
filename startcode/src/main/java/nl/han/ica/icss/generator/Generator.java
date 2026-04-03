@@ -44,7 +44,7 @@ public class Generator {
             if (node instanceof Declaration) {
                 Declaration declaration = (Declaration) node;
 
-                if (declaration.expression == null || declaration.property == null) {
+                if (declaration.hasError() || declaration.expression == null || declaration.property == null) {
                     continue;
                 }
 

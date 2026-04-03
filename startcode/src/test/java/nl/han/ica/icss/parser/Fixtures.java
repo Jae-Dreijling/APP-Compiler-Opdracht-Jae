@@ -326,4 +326,74 @@ public class Fixtures {
 
 		return new AST(stylesheet);
 	}
+
+	public static AST uncheckedLevel4() {
+		Stylesheet stylesheet = new Stylesheet();
+
+		/*
+			Base := 10px;
+			Double := Base * 2;
+		*/
+		stylesheet.addChild((new VariableAssignment())
+				.addChild(new VariableReference("Base"))
+				.addChild(new PixelLiteral("10px"))
+		);
+
+		stylesheet.addChild((new VariableAssignment())
+				.addChild(new VariableReference("Double"))
+				.addChild((new MultiplyOperation())
+						.addChild(new VariableReference("Base"))
+						.addChild(new ScalarLiteral("2"))
+				)
+		);
+
+		/*
+			h1 {
+				width: Double;
+			}
+		*/
+		stylesheet.addChild((new Stylerule())
+				.addChild(new TagSelector("h1"))
+				.addChild((new Declaration("width"))
+						.addChild(new VariableReference("Double")))
+		);
+
+		return new AST(stylesheet);
+	}
+
+	public static AST uncheckedLevel5() {
+		Stylesheet stylesheet = new Stylesheet();
+
+		/*
+			UseRed := TRUE;
+		*/
+		stylesheet.addChild((new VariableAssignment())
+				.addChild(new VariableReference("UseRed"))
+				.addChild(new BoolLiteral(true))
+		);
+
+		/*
+			p {
+				if [UseRed] {
+					color: #ff0000;
+				} else {
+					color: #0000ff;
+				}
+			}
+		*/
+		stylesheet.addChild((new Stylerule())
+				.addChild(new TagSelector("p"))
+				.addChild((new IfClause())
+						.addChild(new VariableReference("UseRed"))
+						.addChild((new Declaration("color"))
+								.addChild(new ColorLiteral("#ff0000")))
+						.addChild((new ElseClause())
+								.addChild((new Declaration("color"))
+										.addChild(new ColorLiteral("#0000ff")))
+						)
+				)
+		);
+
+		return new AST(stylesheet);
+	}
 }
