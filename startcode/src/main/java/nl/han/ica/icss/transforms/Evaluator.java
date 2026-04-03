@@ -18,9 +18,14 @@ public class Evaluator implements Transform {
         variableValues = new HANLinkedList<>();
         pushScope();
 
-        for (ASTNode node : ast.root.getChildren()) {
-            evaluateNode(null, node);
+        ArrayList<ASTNode> rootChildren = new ArrayList<>(ast.root.getChildren());
+
+        for (ASTNode node : rootChildren) {
+            evaluateNode(ast.root, node);
         }
+
+        // 🔥 REMOVE GLOBAL VARIABLE ASSIGNMENTS
+        cleanVariables(ast.root);
 
         popScope();
     }
@@ -45,10 +50,9 @@ public class Evaluator implements Transform {
 
         if (node instanceof IfClause) {
             evaluateIfClause(parent, (IfClause) node);
-            return; // IMPORTANT: stop further traversal (node removed)
+            return;
         }
 
-        // Copy to avoid concurrent modification
         ArrayList<ASTNode> children = new ArrayList<>(node.getChildren());
 
         for (ASTNode child : children) {
@@ -56,12 +60,13 @@ public class Evaluator implements Transform {
         }
 
         if (node instanceof Stylerule) {
+            cleanDeclarations((Stylerule) node); // 🔥 NEW
             popScope();
         }
     }
 
     // -------------------------
-    // IF CLAUSE (NEW PART)
+    // IF CLAUSE
     // -------------------------
 
     private void evaluateIfClause(ASTNode parent, IfClause ifClause) {
@@ -83,24 +88,13 @@ public class Evaluator implements Transform {
             chosenBranch = new ArrayList<>();
         }
 
-        // Remove the if-clause from parent
+        int index = parent.getChildren().indexOf(ifClause);
         parent.removeChild(ifClause);
-
-        // Insert chosen branch at same position
-        int index = parent.getChildren().size();
-
-        for (int i = 0; i < parent.getChildren().size(); i++) {
-            if (parent.getChildren().get(i) == ifClause) {
-                index = i;
-                break;
-            }
-        }
 
         pushScope();
 
         for (int i = 0; i < chosenBranch.size(); i++) {
             ASTNode child = chosenBranch.get(i);
-
             parent.addChild(child);
             evaluateNode(parent, child);
         }
@@ -127,7 +121,7 @@ public class Evaluator implements Transform {
     }
 
     // -------------------------
-    // EXPRESSION EVALUATION
+    // EXPRESSION
     // -------------------------
 
     private Literal evaluateExpression(Expression expr) {
@@ -214,6 +208,48 @@ public class Evaluator implements Transform {
             return new ScalarLiteral(((ScalarLiteral) l).value * ((ScalarLiteral) r).value);
         }
         return null;
+    }
+
+    // -------------------------
+    // CLEANUP (🔥 IMPORTANT)
+    // -------------------------
+
+    private void cleanVariables(ASTNode node) {
+        ArrayList<ASTNode> toRemove = new ArrayList<>();
+
+        for (ASTNode child : node.getChildren()) {
+            if (child instanceof VariableAssignment) {
+                toRemove.add(child);
+            } else {
+                cleanVariables(child);
+            }
+        }
+
+        for (ASTNode n : toRemove) {
+            node.removeChild(n);
+        }
+    }
+
+    private void cleanDeclarations(Stylerule rule) {
+        HashMap<String, Declaration> seen = new HashMap<>();
+        ArrayList<ASTNode> toRemove = new ArrayList<>();
+
+        for (ASTNode node : rule.getChildren()) {
+            if (node instanceof Declaration) {
+                Declaration decl = (Declaration) node;
+                String prop = decl.property.name;
+
+                if (seen.containsKey(prop)) {
+                    toRemove.add(seen.get(prop)); // remove older
+                }
+
+                seen.put(prop, decl);
+            }
+        }
+
+        for (ASTNode n : toRemove) {
+            rule.removeChild(n);
+        }
     }
 
     // -------------------------
