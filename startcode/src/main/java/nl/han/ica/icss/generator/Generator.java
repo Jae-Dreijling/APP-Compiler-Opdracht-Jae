@@ -7,36 +7,60 @@ public class Generator {
 
     public String generate(AST ast) {
         StringBuilder css = new StringBuilder();
+        boolean firstRule = true;
 
         for (ASTNode node : ast.root.body) {
-            if (node instanceof Stylerule) {
-                css.append(generateStylerule((Stylerule) node));
+            if (!(node instanceof Stylerule)) {
+                continue;
             }
+
+            if (!firstRule) {
+                css.append("\n");
+            }
+
+            writeStylerule(css, (Stylerule) node);
+            firstRule = false;
         }
 
         return css.toString();
     }
 
-    private String generateStylerule(Stylerule rule) {
-        StringBuilder css = new StringBuilder();
+    private void writeStylerule(StringBuilder css, Stylerule rule) {
+        if (rule.selectors.isEmpty()) {
+            return;
+        }
 
-        css.append(rule.selectors.get(0).toString()).append(" {\n");
+        // Multiple selectors support
+        for (int i = 0; i < rule.selectors.size(); i++) {
+            if (i > 0) {
+                css.append(", ");
+            }
+            css.append(rule.selectors.get(i).toString());
+        }
+
+        css.append(" {\n");
 
         for (ASTNode node : rule.body) {
             if (node instanceof Declaration) {
-                Declaration decl = (Declaration) node;
+                Declaration declaration = (Declaration) node;
 
-                css.append("  ")
-                   .append(decl.property.name)
-                   .append(": ")
-                   .append(expressionToCss(decl.expression))
-                   .append(";\n");
+                if (declaration.expression == null || declaration.property == null) {
+                    continue;
+                }
+
+                writeDeclaration(css, declaration);
             }
         }
 
         css.append("}\n");
+    }
 
-        return css.toString();
+    private void writeDeclaration(StringBuilder css, Declaration declaration) {
+        css.append("  ");
+        css.append(declaration.property.name);
+        css.append(": ");
+        css.append(expressionToCss(declaration.expression));
+        css.append(";\n");
     }
 
     private String expressionToCss(Expression expression) {
@@ -53,7 +77,7 @@ public class Generator {
             return Integer.toString(((ScalarLiteral) expression).value);
         }
         if (expression instanceof BoolLiteral) {
-            return Boolean.toString(((BoolLiteral) expression).value);
+            return ((BoolLiteral) expression).value ? "TRUE" : "FALSE";
         }
         return "";
     }
