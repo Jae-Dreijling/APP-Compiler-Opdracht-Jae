@@ -2,36 +2,27 @@ grammar ICSS;
 
 //--- LEXER: ---
 
-// IF support:
 IF: 'if';
 ELSE: 'else';
 BOX_BRACKET_OPEN: '[';
 BOX_BRACKET_CLOSE: ']';
 
-
-//Literals
 TRUE: 'TRUE';
 FALSE: 'FALSE';
 PIXELSIZE: [0-9]+ 'px';
 PERCENTAGE: [0-9]+ '%';
 SCALAR: [0-9]+;
 
-
-//Color value takes precedence over id idents
 COLOR: '#' [0-9a-f] [0-9a-f] [0-9a-f] [0-9a-f] [0-9a-f] [0-9a-f];
 
-//Specific identifiers for id's and css classes
 ID_IDENT: '#' [a-z0-9\-]+;
 CLASS_IDENT: '.' [a-z0-9\-]+;
 
-//General identifiers
 LOWER_IDENT: [a-z] [a-z0-9\-]*;
 CAPITAL_IDENT: [A-Z] [A-Za-z0-9_]*;
 
-//All whitespace is skipped
 WS: [ \t\r\n]+ -> skip;
 
-//
 OPEN_BRACE: '{';
 CLOSE_BRACE: '}';
 SEMICOLON: ';';
@@ -41,45 +32,32 @@ MIN: '-';
 MUL: '*';
 ASSIGNMENT_OPERATOR: ':=';
 
-
-
-
 //--- PARSER: ---
-stylesheet: statement* EOF;
 
-statement: stylerule
-         | variableAssignment
-         | ifClause;
+stylesheet: (assignment | stylerule)* EOF;
 
-stylerule: selector OPEN_BRACE declaration* CLOSE_BRACE;
+assignment: variable ASSIGNMENT_OPERATOR expression SEMICOLON;
 
-selector: LOWER_IDENT
-        | ID_IDENT
-        | CLASS_IDENT;
+stylerule: selector OPEN_BRACE body CLOSE_BRACE;
 
-variableAssignment: CAPITAL_IDENT ASSIGNMENT_OPERATOR expression SEMICOLON;
+body: (declaration | ifClause)*;
 
-declaration: LOWER_IDENT COLON expression SEMICOLON;
+selector: ID_IDENT | CLASS_IDENT | LOWER_IDENT;
 
-expression: addExpr;
+declaration: prop=LOWER_IDENT COLON expression SEMICOLON;
 
-addExpr: mulExpr ((PLUS | MIN) mulExpr)*;
+expression: expression op=MUL expression              #OperationExpression
+          | expression op=(PLUS | MIN) expression     #OperationExpression
+          | literal                                   #LiteralExpression
+          | variable                                  #VariableExpression
+          ;
 
-mulExpr: primary (MUL primary)*;
+ifClause: IF BOX_BRACKET_OPEN variable BOX_BRACKET_CLOSE
+          OPEN_BRACE body CLOSE_BRACE
+          elseClause?;
 
-primary: literal
-       | variableReference;
+elseClause: ELSE OPEN_BRACE body CLOSE_BRACE;
 
-variableReference: CAPITAL_IDENT;
+variable: CAPITAL_IDENT;
 
-literal: COLOR
-       | PIXELSIZE
-       | PERCENTAGE
-       | SCALAR
-       | TRUE
-       | FALSE;
-
-
-ifClause: IF BOX_BRACKET_OPEN expression BOX_BRACKET_CLOSE OPEN_BRACE statement* CLOSE_BRACE elseClause?;
-
-elseClause: ELSE OPEN_BRACE statement* CLOSE_BRACE;
+literal: COLOR | PIXELSIZE | PERCENTAGE | SCALAR | TRUE | FALSE;
