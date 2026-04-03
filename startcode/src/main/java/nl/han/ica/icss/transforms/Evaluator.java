@@ -6,6 +6,7 @@ import nl.han.ica.icss.ast.*;
 import nl.han.ica.icss.ast.literals.*;
 import nl.han.ica.icss.ast.operations.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Evaluator implements Transform {
@@ -18,7 +19,7 @@ public class Evaluator implements Transform {
         pushScope();
 
         for (ASTNode node : ast.root.getChildren()) {
-            evaluateNode(node);
+            evaluateNode(null, node);
         }
 
         popScope();
@@ -28,7 +29,7 @@ public class Evaluator implements Transform {
     // NODE EVALUATION
     // -------------------------
 
-    private void evaluateNode(ASTNode node) {
+    private void evaluateNode(ASTNode parent, ASTNode node) {
 
         if (node instanceof Stylerule) {
             pushScope();
@@ -42,13 +43,69 @@ public class Evaluator implements Transform {
             handleDeclaration((Declaration) node);
         }
 
-        for (ASTNode child : node.getChildren()) {
-            evaluateNode(child);
+        if (node instanceof IfClause) {
+            evaluateIfClause(parent, (IfClause) node);
+            return; // IMPORTANT: stop further traversal (node removed)
+        }
+
+        // Copy to avoid concurrent modification
+        ArrayList<ASTNode> children = new ArrayList<>(node.getChildren());
+
+        for (ASTNode child : children) {
+            evaluateNode(node, child);
         }
 
         if (node instanceof Stylerule) {
             popScope();
         }
+    }
+
+    // -------------------------
+    // IF CLAUSE (NEW PART)
+    // -------------------------
+
+    private void evaluateIfClause(ASTNode parent, IfClause ifClause) {
+
+        Literal condition = evaluateExpression(ifClause.getConditionalExpression());
+
+        boolean isTrue = false;
+        if (condition instanceof BoolLiteral) {
+            isTrue = ((BoolLiteral) condition).value;
+        }
+
+        ArrayList<ASTNode> chosenBranch;
+
+        if (isTrue) {
+            chosenBranch = new ArrayList<>(ifClause.body);
+        } else if (ifClause.getElseClause() != null) {
+            chosenBranch = new ArrayList<>(ifClause.getElseClause().body);
+        } else {
+            chosenBranch = new ArrayList<>();
+        }
+
+        // Remove the if-clause from parent
+        parent.removeChild(ifClause);
+
+        // Insert chosen branch at same position
+        int index = parent.getChildren().size();
+
+        for (int i = 0; i < parent.getChildren().size(); i++) {
+            if (parent.getChildren().get(i) == ifClause) {
+                index = i;
+                break;
+            }
+        }
+
+        pushScope();
+
+        for (int i = 0; i < chosenBranch.size(); i++) {
+            ASTNode child = chosenBranch.get(i);
+
+            parent.addChild(child);
+            evaluateNode(parent, child);
+        }
+
+        popScope();
     }
 
     // -------------------------
@@ -75,9 +132,7 @@ public class Evaluator implements Transform {
 
     private Literal evaluateExpression(Expression expr) {
 
-        if (expr instanceof Literal) {
-            return (Literal) expr;
-        }
+        if (expr instanceof Literal) return (Literal) expr;
 
         if (expr instanceof VariableReference) {
             return resolveVariable(((VariableReference) expr).name);
@@ -153,7 +208,7 @@ public class Evaluator implements Transform {
             return new PercentageLiteral(((ScalarLiteral) l).value * ((PercentageLiteral) r).value);
         }
         if (l instanceof PercentageLiteral && r instanceof ScalarLiteral) {
-            return new PercentageLiteral(((PercentageLiteral) r).value * ((ScalarLiteral) l).value);
+            return new PercentageLiteral(((PercentageLiteral) l).value * ((ScalarLiteral) r).value);
         }
         if (l instanceof ScalarLiteral && r instanceof ScalarLiteral) {
             return new ScalarLiteral(((ScalarLiteral) l).value * ((ScalarLiteral) r).value);
