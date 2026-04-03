@@ -13,10 +13,11 @@ import nl.han.ica.icss.ast.selectors.TagSelector;
 
 public class ASTListener extends ICSSBaseListener {
 
+	// ----- Core AST state -----
 	private AST ast;
-
 	private IHANStack<ASTNode> currentContainer;
 
+	// ----- Construction & accessor -----
 	public ASTListener() {
 		ast = new AST();
 		currentContainer = new HANStack<>();
@@ -26,6 +27,7 @@ public class ASTListener extends ICSSBaseListener {
 		return ast;
 	}
 
+	// ----- Stylesheet root handling -----
 	@Override
 	public void enterStylesheet(ICSSParser.StylesheetContext ctx) {
 		Stylesheet stylesheet = new Stylesheet();
@@ -38,6 +40,7 @@ public class ASTListener extends ICSSBaseListener {
 		currentContainer.pop();
 	}
 
+	// ----- Variable assignment handling -----
 	@Override
 	public void enterAssignment(ICSSParser.AssignmentContext ctx) {
 		VariableAssignment assignment = new VariableAssignment();
@@ -50,14 +53,14 @@ public class ASTListener extends ICSSBaseListener {
 		currentContainer.pop();
 	}
 
+	// ----- Variable references in expressions -----
 	@Override
 	public void enterVariable(ICSSParser.VariableContext ctx) {
 		VariableReference var = new VariableReference(ctx.getText());
 
 		if (currentContainer.peek() instanceof VariableAssignment) {
 			currentContainer.peek().addChild(var);
-		} 
-		else if (currentContainer.peek() instanceof IfClause) {
+		} else if (currentContainer.peek() instanceof IfClause) {
 			currentContainer.peek().addChild(var); // condition
 		}
 	}
@@ -68,6 +71,7 @@ public class ASTListener extends ICSSBaseListener {
 		currentContainer.peek().addChild(variableReference);
 	}
 
+	// ----- Operations (add, subtract, multiply) -----
 	@Override
 	public void enterOperationExpression(ICSSParser.OperationExpressionContext ctx) {
 		Operation operation;
@@ -93,6 +97,7 @@ public class ASTListener extends ICSSBaseListener {
 		currentContainer.pop();
 	}
 
+	// ----- Literal node creation -----
 	@Override
 	public void enterLiteral(ICSSParser.LiteralContext ctx) {
 		Literal literal;
@@ -121,6 +126,7 @@ public class ASTListener extends ICSSBaseListener {
 		currentContainer.peek().addChild(literal);
 	}
 
+	// ----- Style rule handling -----
 	@Override
 	public void enterStylerule(ICSSParser.StyleruleContext ctx) {
 		Stylerule stylerule = new Stylerule();
@@ -133,6 +139,7 @@ public class ASTListener extends ICSSBaseListener {
 		currentContainer.pop();
 	}
 
+	// ----- Selector dispatch (ID, class, tag) -----
 	@Override
 	public void enterSelector(ICSSParser.SelectorContext ctx) {
 		Selector selector;
@@ -148,6 +155,7 @@ public class ASTListener extends ICSSBaseListener {
 		currentContainer.peek().addChild(selector);
 	}
 
+	// ----- Property declaration handling -----
 	@Override
 	public void enterDeclaration(ICSSParser.DeclarationContext ctx) {
 		Declaration declaration = new Declaration();
@@ -161,6 +169,7 @@ public class ASTListener extends ICSSBaseListener {
 		currentContainer.pop();
 	}
 
+	// ----- Conditional blocks (if/else) -----
 	@Override
 	public void enterIfClause(ICSSParser.IfClauseContext ctx) {
 		IfClause ifClause = new IfClause();
