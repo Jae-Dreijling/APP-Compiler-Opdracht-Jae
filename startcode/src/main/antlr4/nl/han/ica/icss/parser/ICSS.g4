@@ -40,7 +40,7 @@ assignment: variable ASSIGNMENT_OPERATOR expression SEMICOLON;
 
 stylerule: selector OPEN_BRACE body CLOSE_BRACE;
 
-body: (declaration | ifClause)*;
+body: (declaration | assignment | ifClause)*;
 
 selector: ID_IDENT | CLASS_IDENT | LOWER_IDENT;
 
@@ -52,7 +52,7 @@ expression: expression op=MUL expression              #OperationExpression
           | variable                                  #VariableExpression
           ;
 
-ifClause: IF BOX_BRACKET_OPEN variable BOX_BRACKET_CLOSE
+ifClause: IF BOX_BRACKET_OPEN expression BOX_BRACKET_CLOSE
           OPEN_BRACE body CLOSE_BRACE
           elseClause?;
 
